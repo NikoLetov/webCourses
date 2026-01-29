@@ -1,9 +1,9 @@
-import { LayoutPage } from '@/app/layout'
+import { AppLayout } from '@/app/layout/layout'
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
 
 export const Route = createRootRoute({
 	component: () => (
-		<LayoutPage
+		<AppLayout
 			header={
 				<div>
 					<Link to="/">Главная</Link>
@@ -11,6 +11,7 @@ export const Route = createRootRoute({
 				</div>
 			}
 			main={<Outlet />}
+			footer={<div>footer</div>}
 		/>
 	)
 })
