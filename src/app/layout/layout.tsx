@@ -1,4 +1,6 @@
-export const LayoutPage = ({
+import styles from './layout.module.scss'
+
+export const AppLayout = ({
 	header,
 	main,
 	footer
@@ -8,9 +10,9 @@ export const LayoutPage = ({
 	footer?: React.ReactNode
 }) => {
 	return (
-		<div>
+		<div className={styles.app}>
 			{header}
-			<main>{main}</main>
+			<main className={styles.main}>{main}</main>
 			{footer}
 		</div>
 	)
