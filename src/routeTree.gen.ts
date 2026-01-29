@@ -12,9 +12,10 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as publicAboutRouteImport } from './routes/(public)/about'
 import { Route as TestTestIdIndexRouteImport } from './routes/test.$testId/index'
 
+const publicNewsLazyRouteImport = createFileRoute('/(public)/news')()
+const publicAboutLazyRouteImport = createFileRoute('/(public)/about')()
 const authRegisterLazyRouteImport = createFileRoute('/(auth)/register')()
 const authLoginLazyRouteImport = createFileRoute('/(auth)/login')()
 
@@ -23,6 +24,20 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const publicNewsLazyRoute = publicNewsLazyRouteImport
+  .update({
+    id: '/(public)/news',
+    path: '/news',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+  .lazy(() => import('./routes/(public)/news.lazy').then((d) => d.Route))
+const publicAboutLazyRoute = publicAboutLazyRouteImport
+  .update({
+    id: '/(public)/about',
+    path: '/about',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+  .lazy(() => import('./routes/(public)/about.lazy').then((d) => d.Route))
 const authRegisterLazyRoute = authRegisterLazyRouteImport
   .update({
     id: '/(auth)/register',
@@ -37,11 +52,6 @@ const authLoginLazyRoute = authLoginLazyRouteImport
     getParentRoute: () => rootRouteImport,
   } as any)
   .lazy(() => import('./routes/(auth)/login.lazy').then((d) => d.Route))
-const publicAboutRoute = publicAboutRouteImport.update({
-  id: '/(public)/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TestTestIdIndexRoute = TestTestIdIndexRouteImport.update({
   id: '/test/$testId/',
   path: '/test/$testId/',
@@ -50,45 +60,56 @@ const TestTestIdIndexRoute = TestTestIdIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof publicAboutRoute
   '/login': typeof authLoginLazyRoute
   '/register': typeof authRegisterLazyRoute
+  '/about': typeof publicAboutLazyRoute
+  '/news': typeof publicNewsLazyRoute
   '/test/$testId/': typeof TestTestIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof publicAboutRoute
   '/login': typeof authLoginLazyRoute
   '/register': typeof authRegisterLazyRoute
+  '/about': typeof publicAboutLazyRoute
+  '/news': typeof publicNewsLazyRoute
   '/test/$testId': typeof TestTestIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/(public)/about': typeof publicAboutRoute
   '/(auth)/login': typeof authLoginLazyRoute
   '/(auth)/register': typeof authRegisterLazyRoute
+  '/(public)/about': typeof publicAboutLazyRoute
+  '/(public)/news': typeof publicNewsLazyRoute
   '/test/$testId/': typeof TestTestIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/login' | '/register' | '/test/$testId/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/about'
+    | '/news'
+    | '/test/$testId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/login' | '/register' | '/test/$testId'
+  to: '/' | '/login' | '/register' | '/about' | '/news' | '/test/$testId'
   id:
     | '__root__'
     | '/'
-    | '/(public)/about'
     | '/(auth)/login'
     | '/(auth)/register'
+    | '/(public)/about'
+    | '/(public)/news'
     | '/test/$testId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  publicAboutRoute: typeof publicAboutRoute
   authLoginLazyRoute: typeof authLoginLazyRoute
   authRegisterLazyRoute: typeof authRegisterLazyRoute
+  publicAboutLazyRoute: typeof publicAboutLazyRoute
+  publicNewsLazyRoute: typeof publicNewsLazyRoute
   TestTestIdIndexRoute: typeof TestTestIdIndexRoute
 }
 
@@ -99,6 +120,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(public)/news': {
+      id: '/(public)/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof publicNewsLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(public)/about': {
+      id: '/(public)/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof publicAboutLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/(auth)/register': {
@@ -115,13 +150,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authLoginLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(public)/about': {
-      id: '/(public)/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof publicAboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/test/$testId/': {
       id: '/test/$testId/'
       path: '/test/$testId'
@@ -134,9 +162,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  publicAboutRoute: publicAboutRoute,
   authLoginLazyRoute: authLoginLazyRoute,
   authRegisterLazyRoute: authRegisterLazyRoute,
+  publicAboutLazyRoute: publicAboutLazyRoute,
+  publicNewsLazyRoute: publicNewsLazyRoute,
   TestTestIdIndexRoute: TestTestIdIndexRoute,
 }
 export const routeTree = rootRouteImport

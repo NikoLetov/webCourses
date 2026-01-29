@@ -1,15 +1,11 @@
 import { AppLayout } from '@/app/layout/layout'
-import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
+import { Header } from '@/widget/header'
+import { createRootRoute, Outlet } from '@tanstack/react-router'
 
 export const Route = createRootRoute({
 	component: () => (
 		<AppLayout
-			header={
-				<div>
-					<Link to="/">Главная</Link>
-					<Link to="/about">О нас</Link>
-				</div>
-			}
+			header={<Header />}
 			main={<Outlet />}
 			footer={<div>footer</div>}
 		/>
