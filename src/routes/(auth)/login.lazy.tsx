@@ -5,5 +5,5 @@ export const Route = createLazyFileRoute('/(auth)/login')({
 })
 
 function RouteComponent() {
-	return <div>Hello "/_auth/login"!</div>
+	return <div>Hello "/321"!</div>
 }

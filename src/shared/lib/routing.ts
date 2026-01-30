@@ -8,14 +8,14 @@ type RouterTest = {
 export const ROUTES_MAP: RouterTest[] = [
 	{
 		label: 'Главная',
-		to: '/'
+		to: '/app'
 	},
 	{
 		label: 'О нас',
-		to: '/about'
+		to: '/app/about'
 	},
 	{
 		label: 'Новости',
-		to: '/news'
+		to: '/app/news'
 	}
 ]
