@@ -19,8 +19,8 @@ export const Header = () => {
 						))}
 				</ul>
 				<div className={styles.auth}>
-					<Link to="/register">Register</Link>
-					<Link to="/login">Sign in</Link>
+					<Link to="/auth/register">Register</Link>
+					<Link to="/auth/login">Sign in</Link>
 				</div>
 			</nav>
 		</header>
