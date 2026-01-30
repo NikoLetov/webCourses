@@ -18,6 +18,10 @@ export const Header = () => {
 							</Link>
 						))}
 				</ul>
+				<div className={styles.auth}>
+					<Link to="/register">Register</Link>
+					<Link to="/login">Sign in</Link>
+				</div>
 			</nav>
 		</header>
 	)

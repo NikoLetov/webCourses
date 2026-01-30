@@ -1,13 +1,11 @@
-import { AppLayout } from '@/app/layout/layout'
-import { Header } from '@/widget/header'
 import { createRootRoute, Outlet } from '@tanstack/react-router'
+import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 
 export const Route = createRootRoute({
 	component: () => (
-		<AppLayout
-			header={<Header />}
-			main={<Outlet />}
-			footer={<div>footer</div>}
-		/>
+		<>
+			<Outlet />
+			<TanStackRouterDevtools />
+		</>
 	)
 })

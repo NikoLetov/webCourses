@@ -9,6 +9,8 @@
 .nav {
 	max-width: 1024px;
 	width: 100%;
+	display: flex;
+	justify-content: space-between;
 }
 
 .list {
@@ -19,4 +21,9 @@
 .item {
 	font-size: 1rem;
 	color: black;
+}
+
+.auth {
+	display: flex;
+	gap: 1rem;
 }
