@@ -1,10 +1,13 @@
 .app {
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
+	min-height: 100vh;
+	background: linear-gradient(135deg, #e0f2e9, #c8e6d9, #b8d9c5);
 }
 
 .main {
 	display: flex;
+	padding-top: 40px;
 	flex: 1 0;
+	justify-content: center;
 }
