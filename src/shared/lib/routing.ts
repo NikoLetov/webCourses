@@ -1,21 +1,21 @@
 import type { FileRoutesByTo } from '@/routeTree.gen'
 
-type RouterTest = {
+type RouterType = {
 	label: string
 	to: keyof FileRoutesByTo
 }
 
-export const ROUTES_MAP: RouterTest[] = [
+export const ROUTES_MAP: RouterType[] = [
 	{
-		label: 'Главная',
+		label: 'Сourses',
 		to: '/'
 	},
 	{
-		label: 'О нас',
+		label: 'About',
 		to: '/about'
 	},
 	{
-		label: 'Новости',
+		label: 'News',
 		to: '/news'
 	}
 ]
