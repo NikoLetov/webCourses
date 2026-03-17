@@ -2,12 +2,45 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-	flex: 0 1 24%;
+	flex: 1 0 20%;
 	width: 100%;
-	min-height: 200px;
+	min-height: 100%;
 	gap: 10px;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 	border-radius: 25px;
 	padding: 15px;
 	background: white;
+}
+
+.title {
+	text-align: center;
+	font-size: 1.3rem;
+	line-height: 1.2;
+	font-weight: 600;
+}
+
+.text {
+	font-size: 1.2rem;
+	line-height: 1.2;
+}
+
+.rating {
+	font-size: 2em;
+}
+
+.itemImg {
+	position: relative;
+	width: 100%;
+	padding-bottom: 100%;
+
+	img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
 }

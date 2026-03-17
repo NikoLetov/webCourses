@@ -1,4 +1,5 @@
 import type { ICoursesItem } from '@/widget/coursesList/data'
+import { Link } from '@tanstack/react-router'
 import styles from './Card.module.scss'
 
 export const Card = ({ item }: { item: ICoursesItem }) => {
@@ -7,13 +8,21 @@ export const Card = ({ item }: { item: ICoursesItem }) => {
 			className={styles.card}
 			key={item.id}
 		>
-			<div>{item.name}</div>
-			<img
-				src={item.img || ''}
-				alt="1"
-			/>
-			<div>{item.description}</div>
-			<div>{item.rating}</div>
+			<div className={styles.title}>{item.name}</div>
+			<div className={styles.itemImg}>
+				<img
+					src={item.img || ''}
+					alt="1"
+				/>
+			</div>
+			<div className={styles.text}>{item.description}</div>
+			<div className={styles.rating}>rating: {item.rating}</div>
+			<Link
+				to={'/test/$testId'}
+				params={{ testId: String(item.id) }}
+			>
+				Подробнее...
+			</Link>
 		</li>
 	)
 }

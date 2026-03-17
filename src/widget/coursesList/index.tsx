@@ -1,1 +1,1 @@
-export { CoursesList } from './CoursesList'
+export { CoursesList } from './courses-list'

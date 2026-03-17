@@ -1,3 +1,5 @@
+import { SignInForm } from '@/widget/auth/form'
+import { AuthLayout } from '@/widget/auth/layout'
 import { createLazyFileRoute } from '@tanstack/react-router'
 
 export const Route = createLazyFileRoute('/auth/login')({
@@ -5,5 +7,5 @@ export const Route = createLazyFileRoute('/auth/login')({
 })
 
 function RouteComponent() {
-	return <div>Hello "/321"!</div>
+	return <AuthLayout form={<SignInForm />} />
 }
