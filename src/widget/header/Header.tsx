@@ -1,6 +1,6 @@
 import { ROUTES_MAP } from '@/shared/lib/routing'
 import { Link } from '@tanstack/react-router'
-import styles from './Header.module.scss'
+import styles from './header.module.scss'
 
 export const Header = () => {
 	return (
@@ -19,7 +19,7 @@ export const Header = () => {
 						))}
 				</ul>
 				<div className={styles.auth}>
-					<Link to="/auth/register">Register</Link>
+					<Link to="/auth/register">Sign Up</Link>
 					<Link to="/auth/login">Sign in</Link>
 				</div>
 			</nav>

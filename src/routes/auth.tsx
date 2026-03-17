@@ -7,7 +7,6 @@ export const Route = createFileRoute('/auth')({
 function RouteComponent() {
 	return (
 		<div>
-			<span>auth</span>
 			<Outlet />
 		</div>
 	)
