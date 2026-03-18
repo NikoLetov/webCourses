@@ -1,22 +1,28 @@
+import { AuthService } from '@/entity/auth/auth.services'
+import { useRouter } from '@tanstack/react-router'
 import { Button, Card, Form, Input, Typography } from 'antd'
 import { useFormik } from 'formik'
 import styles from './form.module.scss'
 
-export const SignUpForm = () => {
+export const SignInForm = () => {
+	const router = useRouter()
 	const formik = useFormik({
 		initialValues: {
 			email: '',
-			password: '',
-			confirmPassword: ''
+			password: ''
 		},
-		onSubmit: (val) => {
-			console.log(val)
+		onSubmit: async (val) => {
+			const result = await AuthService.SignIn(val)
+			if (result) {
+				router.history.back()
+				console.log(router.history)
+			}
 		}
 	})
 
 	return (
 		<Card
-			title={<Typography.Title level={2}>Sign Up</Typography.Title>}
+			title={<Typography.Title level={2}>Sign In</Typography.Title>}
 			className={styles.card}
 		>
 			<form onSubmit={formik.handleSubmit}>
@@ -36,19 +42,11 @@ export const SignUpForm = () => {
 						placeholder="Your Password"
 					/>
 				</Form.Item>
-				<Form.Item>
-					<Input.Password
-						name="confirmPassword"
-						onChange={formik.handleChange}
-						value={formik.values.confirmPassword}
-						placeholder="Confirm Password"
-					/>
-				</Form.Item>
 				<Button
 					htmlType="submit"
 					className={styles.button}
 				>
-					Sign up
+					Sign in
 				</Button>
 			</form>
 		</Card>
