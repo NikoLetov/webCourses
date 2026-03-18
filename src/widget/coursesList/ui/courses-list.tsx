@@ -1,7 +1,7 @@
-import { Card } from '@/entity/card'
+import { Card } from '@/entity/card-item'
 import { useState } from 'react'
+import { COURSES_ITEMS } from '../data'
 import styles from './courses-list.module.scss'
-import { COURSES_ITEMS } from './data'
 
 export const CoursesList = () => {
 	const [courses] = useState(() => COURSES_ITEMS)

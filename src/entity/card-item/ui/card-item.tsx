@@ -1,6 +1,6 @@
 import type { ICoursesItem } from '@/widget/coursesList/data'
 import { Link } from '@tanstack/react-router'
-import styles from './Card.module.scss'
+import styles from './card-item.module.scss'
 
 export const Card = ({ item }: { item: ICoursesItem }) => {
 	return (
