@@ -1,27 +1,40 @@
-import { DATA_USERS, type IUser } from './data'
-
-type IAuthUser = Pick<IUser, 'email' | 'password'>
+import {
+	RegistrationError,
+	UnauthorizedError,
+	type ApiResponse
+} from '@/shared/api/types'
+import { DATA_USERS, type UserType } from './data'
+import { type AuthSession, type AuthUserType } from './type.api'
 
 const STORAGE_KEYS = {
 	SESSION: 'session'
 } as const
 class AuthServices {
+	//INFO:Просто весит для иллюзии сервиса со своим Url
+	protected url
+	constructor(url: string) {
+		this.url = url
+	}
+
 	//INFO:Вынес получения куки
-	private async getSessionCookie(): Promise<boolean> {
+
+	private async getSessionCookie(): Promise<CookieListItem> {
 		try {
 			const cookie = await cookieStore.get(STORAGE_KEYS.SESSION)
 			if (!cookie) {
 				throw new Error()
 			}
-			return !!cookie
+
+			return cookie
 		} catch (e) {
-			console.error(e)
-			return false
+			const error = e instanceof Error ? e : new Error(String(e))
+			throw error
 		}
 	}
 
 	//INFO: Вынес установку куки
-	private async setSessionCookie(data: IAuthUser): Promise<boolean> {
+
+	private async setSessionCookie(data: AuthSession): Promise<CookieListItem> {
 		try {
 			await cookieStore.set(STORAGE_KEYS.SESSION, JSON.stringify(data))
 			const isCheck = await this.getSessionCookie()
@@ -32,88 +45,111 @@ class AuthServices {
 
 			return isCheck
 		} catch (e) {
-			console.error(e)
-			return false
+			const error = e instanceof Error ? e : new Error(String(e))
+			throw error
 		}
 	}
 
-	public async getSession(): Promise<boolean> {
+	public async getSession() {
 		try {
 			return await this.getSessionCookie()
 		} catch (e) {
-			console.error(e)
-			return false
+			const error = e instanceof Error ? e : new Error(String(e))
+			throw new UnauthorizedError(error.message)
 		}
 	}
 
-	public async SignUp({ email, password }: IAuthUser): Promise<boolean> {
+	public async SignUp({
+		email,
+		password
+	}: AuthUserType): Promise<ApiResponse<Omit<UserType, 'password'>>> {
 		try {
-			await new Promise<boolean>((res) => {
+			const response = await new Promise<
+				ApiResponse<Omit<UserType, 'password'>>
+			>((res, rej) => {
 				if (DATA_USERS.find((item) => item.email === email)) {
-					throw new Error(
-						JSON.stringify({
-							status: 402,
-							message: 'This user already exists, try another one'
-						})
-					)
+					rej(new RegistrationError())
 				}
 
-				const newUser: IUser = {
+				const newUser: UserType = {
 					id: Date.now(),
 					email,
 					password,
-					name: 'Default1'
+					name: 'Default1',
+					role: 'user',
+					avatar: ''
 				}
 
 				setTimeout(() => {
 					if (Math.random() < 0.1) {
-						throw new Error()
+						rej(new RegistrationError())
+						return
 					} else {
 						DATA_USERS.push(newUser)
-						res(true)
+						const { password, ...data } = newUser
+						void password
+						res({
+							success: true,
+							data,
+							status: 201
+						})
 					}
 				}, 2000)
 			})
 
-			return await this.setSessionCookie({ email, password })
+			if (response.success) {
+				await this.setSessionCookie(response.data)
+			}
+
+			return response
 		} catch (e) {
-			console.error(e)
-			return false
+			const error = e instanceof Error ? e : new Error(String(e))
+			throw new RegistrationError(error.message)
 		}
 	}
 
-	public async SignIn({ email, password }: IAuthUser): Promise<boolean> {
+	public async SignIn({
+		email,
+		password: password1
+	}: AuthUserType): Promise<ApiResponse<Omit<UserType, 'password'>>> {
 		try {
-			await new Promise<boolean>((res) => {
+			const response = await new Promise<
+				ApiResponse<Omit<UserType, 'password'>>
+			>((res, rej) => {
 				const user = DATA_USERS.find((item) => item.email === email)
 
-				if (!user || user.password !== password) {
-					throw new Error(
-						JSON.stringify({
-							status: 401,
-							message: 'Incorrect login or password'
-						})
-					)
+				if (!user || user.password !== password1) {
+					rej(new UnauthorizedError())
+					return
 				}
 
-				res(true)
-			})
+				const { password, ...data } = user
+				void password
 
-			return await this.setSessionCookie({ email, password })
+				res({
+					success: true,
+					data,
+					status: 200
+				})
+			})
+			if (response.success) {
+				await this.setSessionCookie(response.data)
+			}
+			return response
 		} catch (e) {
-			console.error(e)
-			return false
+			const error = e instanceof Error ? e : new Error(String(e))
+			throw new UnauthorizedError(error.message)
 		}
 	}
 
-	public async SignOut(): Promise<boolean> {
+	public async SignOut(): Promise<void> {
 		try {
 			await cookieStore.delete(STORAGE_KEYS.SESSION)
-			return this.getSessionCookie()
+			await this.getSessionCookie()
 		} catch (e) {
-			console.error(e)
-			return false
+			const error = e instanceof Error ? e : new Error(String(e))
+			throw error
 		}
 	}
 }
-export const AuthService = new AuthServices()
+export const AuthService = new AuthServices('https://auth:v1')

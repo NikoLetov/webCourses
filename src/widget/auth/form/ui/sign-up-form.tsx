@@ -13,10 +13,10 @@ export const SignUpForm = () => {
 			confirmPassword: ''
 		},
 		onSubmit: async (val) => {
-			// eslint-disable-next-line
 			const { confirmPassword, ...data } = val
+			void confirmPassword
 			const result = await AuthService.SignUp(data)
-			if (result) {
+			if (result.success) {
 				formik.resetForm()
 				router.navigate({
 					to: '/'
