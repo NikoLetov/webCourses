@@ -1,4 +1,5 @@
 import { AuthService } from '@/entity/auth/auth.services'
+import type { UserType } from '@/entity/auth/type.api'
 import { useRouter } from '@tanstack/react-router'
 import { Button, Card, Form, Input, Typography } from 'antd'
 import { useFormik } from 'formik'
@@ -13,10 +14,15 @@ export const SignUpForm = () => {
 			confirmPassword: ''
 		},
 		onSubmit: async (val) => {
-			const { confirmPassword, ...data } = val
-			void confirmPassword
-			const result = await AuthService.SignUp(data)
-			if (result.success) {
+			const newUser: Omit<UserType, 'id'> = {
+				email: val.email,
+				name: val.email,
+				password: val.password,
+				role: 'user',
+				avatar: ''
+			}
+			const result = await AuthService.SignUp(newUser)
+			if (result) {
 				formik.resetForm()
 				router.navigate({
 					to: '/'

@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as appRouteRouteImport } from './routes/(app)/route'
 import { Route as appIndexRouteImport } from './routes/(app)/index'
 import { Route as TestTestIdIndexRouteImport } from './routes/test.$testId/index'
+import { Route as appProfileProfileIdIndexRouteImport } from './routes/(app)/profile.$profileId/index'
 
 const AuthRegisterLazyRouteImport = createFileRoute('/auth/register')()
 const AuthLoginLazyRouteImport = createFileRoute('/auth/login')()
@@ -64,6 +65,12 @@ const TestTestIdIndexRoute = TestTestIdIndexRouteImport.update({
   path: '/test/$testId/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const appProfileProfileIdIndexRoute =
+  appProfileProfileIdIndexRouteImport.update({
+    id: '/profile/$profileId/',
+    path: '/profile/$profileId/',
+    getParentRoute: () => appRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/auth': typeof AuthRouteWithChildren
@@ -73,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/auth/register': typeof AuthRegisterLazyRoute
   '/': typeof appIndexRoute
   '/test/$testId/': typeof TestTestIdIndexRoute
+  '/profile/$profileId/': typeof appProfileProfileIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRouteWithChildren
@@ -82,6 +90,7 @@ export interface FileRoutesByTo {
   '/auth/register': typeof AuthRegisterLazyRoute
   '/': typeof appIndexRoute
   '/test/$testId': typeof TestTestIdIndexRoute
+  '/profile/$profileId': typeof appProfileProfileIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -93,6 +102,7 @@ export interface FileRoutesById {
   '/auth/register': typeof AuthRegisterLazyRoute
   '/(app)/': typeof appIndexRoute
   '/test/$testId/': typeof TestTestIdIndexRoute
+  '/(app)/profile/$profileId/': typeof appProfileProfileIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -104,6 +114,7 @@ export interface FileRouteTypes {
     | '/auth/register'
     | '/'
     | '/test/$testId/'
+    | '/profile/$profileId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/auth'
@@ -113,6 +124,7 @@ export interface FileRouteTypes {
     | '/auth/register'
     | '/'
     | '/test/$testId'
+    | '/profile/$profileId'
   id:
     | '__root__'
     | '/(app)'
@@ -123,6 +135,7 @@ export interface FileRouteTypes {
     | '/auth/register'
     | '/(app)/'
     | '/test/$testId/'
+    | '/(app)/profile/$profileId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -189,6 +202,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TestTestIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(app)/profile/$profileId/': {
+      id: '/(app)/profile/$profileId/'
+      path: '/profile/$profileId'
+      fullPath: '/profile/$profileId/'
+      preLoaderRoute: typeof appProfileProfileIdIndexRouteImport
+      parentRoute: typeof appRouteRoute
+    }
   }
 }
 
@@ -196,12 +216,14 @@ interface appRouteRouteChildren {
   appAboutLazyRoute: typeof appAboutLazyRoute
   appNewsLazyRoute: typeof appNewsLazyRoute
   appIndexRoute: typeof appIndexRoute
+  appProfileProfileIdIndexRoute: typeof appProfileProfileIdIndexRoute
 }
 
 const appRouteRouteChildren: appRouteRouteChildren = {
   appAboutLazyRoute: appAboutLazyRoute,
   appNewsLazyRoute: appNewsLazyRoute,
   appIndexRoute: appIndexRoute,
+  appProfileProfileIdIndexRoute: appProfileProfileIdIndexRoute,
 }
 
 const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
