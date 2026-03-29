@@ -1,0 +1,88 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "a title",
+      "views": 100
+    },
+    {
+      "id": "2",
+      "title": "another title",
+      "views": 200
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "text": "a comment about post 1",
+      "postId": "1"
+    },
+    {
+      "id": "2",
+      "text": "another comment about post 1",
+      "postId": "1"
+    }
+  ],
+  "user": [
+    {
+      "id": "1",
+      "name": "Niko",
+      "email": "NikoFront@mail.ru",
+      "password": "123",
+      "role": "admin",
+      "avatar": ""
+    },
+    {
+      "id": "2",
+      "name": "Dimko",
+      "email": "Dimko@mail.ru",
+      "password": "123",
+      "role": "user",
+      "avatar": ""
+    },
+    {
+      "email": "githubacc@mail.ru",
+      "name": "githubacc@mail.ru",
+      "password": "123",
+      "role": "user",
+      "avatar": "",
+      "id": "TNKw3XPbNB8"
+    },
+    {
+      "email": "admin@gmail.com",
+      "name": "admin@gmail.com",
+      "password": "123",
+      "role": "user",
+      "avatar": "",
+      "id": "xA4x151nPko"
+    },
+    {
+      "email": "admin@gmail.com",
+      "name": "admin@gmail.com",
+      "password": "123",
+      "role": "user",
+      "avatar": "",
+      "id": "dHFnJ1A-PJc"
+    },
+    {
+      "email": "admin@gmail.com",
+      "name": "admin@gmail.com",
+      "password": "123",
+      "role": "user",
+      "avatar": "",
+      "id": "RoN6llWneEA"
+    },
+    {
+      "email": "admin@gmail.com",
+      "name": "admin@gmail.com",
+      "password": "123",
+      "role": "user",
+      "avatar": "",
+      "id": "JiOlJu240js"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "$schema": "./node_modules/json-server/schema.json"
+}
