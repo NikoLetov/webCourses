@@ -5,7 +5,7 @@ export const Route = createFileRoute('/test/$testId/')({
 	beforeLoad: async ({ location }) => {
 		try {
 			const user = await AuthService.getSession()
-
+			console.log(user)
 			if (!user) {
 				throw redirect({
 					to: '/auth/login',

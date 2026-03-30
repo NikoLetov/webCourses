@@ -37,7 +37,8 @@ export const Avatar = ({ user }: { user: AuthSession }) => {
 
 	return (
 		<Space.Compact>
-			<Button>{user.email}</Button>
+			<Button>{user.name}</Button>
+
 			<Dropdown menu={menuProps}>
 				<Button icon={<UserOutlined />} />
 			</Dropdown>

@@ -22,7 +22,7 @@ export const SignUpForm = () => {
 				avatar: ''
 			}
 			const result = await AuthService.SignUp(newUser)
-			if (result) {
+			if (result.success) {
 				formik.resetForm()
 				router.navigate({
 					to: '/'
