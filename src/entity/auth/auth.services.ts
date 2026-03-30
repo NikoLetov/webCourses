@@ -13,7 +13,6 @@ export const AuthService = {
 	async getSessionCookie(): Promise<CookieListItem | undefined> {
 		try {
 			const cookie = await cookieStore.get(STORAGE_KEYS.SESSION)
-			console.log(cookie)
 			if (!cookie) {
 				return undefined
 			}

@@ -1,10 +1,12 @@
-import type { AuthSession } from '@/entity/auth/type.api'
+import { useAuth } from '@/app/provider/auth/model/use-auth'
 import { ROUTES_MAP } from '@/shared/lib/routing'
 import { Avatar } from '@/shared/ui/avatar'
 import { Link } from '@tanstack/react-router'
 import styles from './header.module.scss'
 
-export const Header = ({ user }: { user: AuthSession | undefined }) => {
+export const Header = () => {
+	const { user } = useAuth()
+
 	return (
 		<header className={styles.header}>
 			<nav className={styles.nav}>
