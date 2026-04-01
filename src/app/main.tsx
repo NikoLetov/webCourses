@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client'
 import './index.scss'
 
 import { routeTree } from '../routeTree.gen'
-import { AuthProvider } from './provider/auth/ui/auth-provider'
+import { AuthProvider } from './provider/auth-provider'
 
 const router = createRouter({ routeTree })
 

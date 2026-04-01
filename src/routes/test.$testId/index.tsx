@@ -1,11 +1,10 @@
-import { AuthService } from '@/entity/auth/auth.services'
+import { AuthService } from '@/entities/auth'
 import { createFileRoute, isRedirect, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/test/$testId/')({
 	beforeLoad: async ({ location }) => {
 		try {
 			const user = await AuthService.getSession()
-			console.log(user)
 			if (!user) {
 				throw redirect({
 					to: '/auth/login',

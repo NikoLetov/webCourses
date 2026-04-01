@@ -1,4 +1,4 @@
-import type { AuthSession } from '@/entity/auth/type.api'
+import type { AuthSession } from '@/entities/auth/api/type.api'
 import { createContext } from 'react'
 
 type AuthContextType = {

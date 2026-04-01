@@ -1,7 +1,7 @@
 import { AppLayout } from '@/app/layout/layout'
-import { useAuth } from '@/app/provider/auth/model/use-auth'
-import { AuthService } from '@/entity/auth/auth.services'
-import type { AuthSession, UserType } from '@/entity/auth/type.api'
+import { AuthService } from '@/entities/auth'
+import type { AuthSession } from '@/entities/auth/api/type.api'
+import { useAuth } from '@/entities/auth/model/use-auth'
 import { Header } from '@/widget/header'
 import { Outlet, createFileRoute, useLoaderData } from '@tanstack/react-router'
 import { useLayoutEffect } from 'react'
@@ -10,13 +10,7 @@ export const Route = createFileRoute('/(app)')({
 	loader: async (): Promise<AuthSession | null> => {
 		try {
 			const session = await AuthService.getSession()
-			if (!session) {
-				return null
-			}
-			const data: UserType =
-				typeof session.value !== 'undefined' && JSON.parse(session.value)
-
-			return data
+			return session
 		} catch (error) {
 			console.error('Failed to load session:', error)
 			return null

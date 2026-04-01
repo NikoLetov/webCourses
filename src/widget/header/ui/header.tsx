@@ -1,4 +1,4 @@
-import { useAuth } from '@/app/provider/auth/model/use-auth'
+import { useAuth } from '@/entities/auth/model/use-auth'
 import { ROUTES_MAP } from '@/shared/lib/routing'
 import { Avatar } from '@/shared/ui/avatar'
 import { Link } from '@tanstack/react-router'
