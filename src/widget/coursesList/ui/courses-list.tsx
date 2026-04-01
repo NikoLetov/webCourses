@@ -1,10 +1,10 @@
 import { Card } from '@/entity/card-item'
-import { useState } from 'react'
-import { COURSES_ITEMS } from '../data'
+import { use } from 'react'
+import type { ICoursesItem } from '../data'
 import styles from './courses-list.module.scss'
 
-export const CoursesList = () => {
-	const [courses] = useState(() => COURSES_ITEMS)
+export const CoursesList = ({ data }: { data: Promise<ICoursesItem[]> }) => {
+	const courses = use(data)
 
 	if (!courses.length) {
 		return <div>Список на данный момент пуст</div>
