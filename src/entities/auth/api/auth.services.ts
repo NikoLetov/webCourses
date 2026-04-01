@@ -10,11 +10,11 @@ const STORAGE_KEYS = {
 } as const
 
 export const AuthService = {
-	async getSessionCookie(): Promise<CookieListItem | undefined> {
+	async getSessionCookie(): Promise<CookieListItem | null> {
 		try {
 			const cookie = await cookieStore.get(STORAGE_KEYS.SESSION)
 			if (!cookie) {
-				return undefined
+				return null
 			}
 
 			return cookie
@@ -39,16 +39,22 @@ export const AuthService = {
 			throw error
 		}
 	},
-	async getSession(): Promise<CookieListItem | undefined> {
+	async getSession(): Promise<AuthSession | null> {
 		try {
-			return await this.getSessionCookie()
+			const session = await this.getSessionCookie()
+			if (!session) {
+				return null
+			}
+			const user: UserType =
+				typeof session.value !== 'undefined' && JSON.parse(session.value)
+			return user
 		} catch (e) {
 			const error = e instanceof Error ? e : new Error(String(e))
 			throw new UnauthorizedError(error.message)
 		}
 	},
 
-	async SignUp(data: AuthUserType): Promise<ApiResponse<UserType>> {
+	async SignUp(data: AuthUserType): Promise<ApiResponse<AuthSession>> {
 		const result = await fetch('http://localhost:3000/user', {
 			method: 'POST',
 			body: JSON.stringify(data)
@@ -56,16 +62,18 @@ export const AuthService = {
 		if (!result.ok) {
 			throw new RegistrationError()
 		}
-		const response = await result.json()
-		await this.setSessionCookie(response)
+
+		const response: UserType = await result.json()
+		const { password, ...user } = response
+		await this.setSessionCookie(user)
 		return {
 			success: true,
 			status: 201,
-			data: response
+			data: user
 		}
 	},
 
-	async SignIn(data: AuthUserType): Promise<ApiResponse<UserType>> {
+	async SignIn(data: AuthUserType): Promise<ApiResponse<AuthSession>> {
 		const result = await fetch(
 			`http://localhost:3000/user?email=${data.email}`,
 			{
@@ -75,20 +83,21 @@ export const AuthService = {
 		if (!result.ok) {
 			throw new UnauthorizedError()
 		}
-		const response = await result.json()
+		const response: UserType[] = await result.json()
 
-		const findUser = response.find(
+		const findUser: UserType | undefined = response.find(
 			(item: UserType) => item.password === data.password
 		)
 		if (!findUser) {
 			throw new UnauthorizedError()
 		}
-		await this.setSessionCookie(findUser)
+		const { password, ...user } = findUser
+		await this.setSessionCookie(user)
 
 		return {
 			success: true,
 			status: 200,
-			data: findUser
+			data: user
 		}
 	},
 

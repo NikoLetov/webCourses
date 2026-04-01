@@ -1,6 +1,5 @@
-import { useAuth } from '@/app/provider/auth/model/use-auth'
-import { AuthService } from '@/entity/auth/auth.services'
-import type { AuthSession } from '@/entity/auth/type.api'
+import { AuthService } from '@/entities/auth'
+import type { AuthSession } from '@/entities/auth/api/type.api'
 import { UserOutlined } from '@ant-design/icons'
 import { Link, useRouter } from '@tanstack/react-router'
 import type { MenuProps } from 'antd'
@@ -8,12 +7,10 @@ import { Button, Dropdown, Space } from 'antd'
 
 export const Avatar = ({ user }: { user: AuthSession }) => {
 	const router = useRouter()
-	const { setUser } = useAuth()
 
 	const handleButton = async () => {
 		await AuthService.SignOut()
 		router.invalidate()
-		setUser(null)
 	}
 	//TODO: хуйня!
 	const items: MenuProps['items'] = [

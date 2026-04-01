@@ -1,5 +1,4 @@
-import { AuthService } from '@/entity/auth/auth.services'
-import type { UserType } from '@/entity/auth/type.api'
+import { AuthService } from '@/entities/auth'
 import { createFileRoute, isRedirect, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/(app)/profile/$profileId/')({
@@ -12,9 +11,7 @@ export const Route = createFileRoute('/(app)/profile/$profileId/')({
 				throw new Error()
 			}
 
-			const data: UserType =
-				typeof session.value !== 'undefined' && JSON.parse(session.value)
-			if (profileId !== data.id) {
+			if (profileId !== session.id) {
 				throw redirect({
 					to: '/news',
 					search: { redirect: location.href }

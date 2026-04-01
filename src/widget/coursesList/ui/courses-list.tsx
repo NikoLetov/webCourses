@@ -1,4 +1,4 @@
-import { Card } from '@/entity/card-item'
+import { Card } from '@/entities/card-item'
 import { use } from 'react'
 import type { ICoursesItem } from '../data'
 import styles from './courses-list.module.scss'
