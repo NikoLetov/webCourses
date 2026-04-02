@@ -1,1 +1,1 @@
-export { Card } from './ui/card-item'
+export { CardPreview } from './ui/card-preview'

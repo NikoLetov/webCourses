@@ -1,6 +1,8 @@
-import { Card } from '@/entities/card-item'
+import {
+	CardPreview,
+	type ICoursesItem
+} from '@/entities/card-item/ui/card-preview'
 import { use } from 'react'
-import type { ICoursesItem } from '../data'
 import styles from './courses-list.module.scss'
 
 export const CoursesList = ({ data }: { data: Promise<ICoursesItem[]> }) => {
@@ -14,7 +16,7 @@ export const CoursesList = ({ data }: { data: Promise<ICoursesItem[]> }) => {
 		<ul className={styles.list}>
 			{courses &&
 				courses.map((item) => (
-					<Card
+					<CardPreview
 						key={item.id}
 						item={item}
 					/>
