@@ -1,8 +1,22 @@
-import type { ICoursesItem } from '@/widget/coursesList/data'
 import { Link } from '@tanstack/react-router'
-import styles from './card-item.module.scss'
+import styles from './card-preview.module.scss'
 
-export const Card = ({ item }: { item: ICoursesItem }) => {
+interface UserComment {
+	username: string
+	rating: number
+	comment: string
+}
+
+export interface ICoursesItem {
+	id: number
+	name: string
+	rating: number
+	description: string
+	img?: string | undefined
+	reviews?: UserComment[]
+}
+
+export const CardPreview = ({ item }: { item: ICoursesItem }) => {
 	return (
 		<li
 			className={styles.card}
@@ -18,8 +32,8 @@ export const Card = ({ item }: { item: ICoursesItem }) => {
 			<div className={styles.text}>{item.description}</div>
 			<div className={styles.rating}>rating: {item.rating}</div>
 			<Link
-				to={'/test/$testId'}
-				params={{ testId: String(item.id) }}
+				to={'/courses/$coursesId'}
+				params={{ coursesId: String(item.id) }}
 			>
 				Подробнее...
 			</Link>
