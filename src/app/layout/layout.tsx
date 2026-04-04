@@ -1,5 +1,3 @@
-import styles from './layout.module.scss'
-
 export const AppLayout = ({
 	header,
 	main,
@@ -10,9 +8,9 @@ export const AppLayout = ({
 	footer?: React.ReactNode
 }) => {
 	return (
-		<div className={styles.app}>
+		<div className="flex flex-col min-h-screen bg-linear-to-br from-emerald-100 via-teal-100 to-green-200">
 			{header}
-			<main className={styles.main}>{main}</main>
+			<main className="flex pt-10 justify-center flex-1 shrink-0">{main}</main>
 			{footer}
 		</div>
 	)

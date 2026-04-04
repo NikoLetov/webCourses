@@ -2,7 +2,6 @@ import { AuthService } from '@/entities/auth'
 import { useRouter } from '@tanstack/react-router'
 import { Button, Card, Form, Input, Typography } from 'antd'
 import { useFormik } from 'formik'
-import styles from './form.module.scss'
 
 export const SignInForm = () => {
 	const router = useRouter()
@@ -22,7 +21,7 @@ export const SignInForm = () => {
 	return (
 		<Card
 			title={<Typography.Title level={2}>Sign In</Typography.Title>}
-			className={styles.card}
+			className="w-96 flex flex-col justify-center text-center"
 		>
 			<form onSubmit={formik.handleSubmit}>
 				<Form.Item>
@@ -43,7 +42,7 @@ export const SignInForm = () => {
 				</Form.Item>
 				<Button
 					htmlType="submit"
-					className={styles.button}
+					className="w-full"
 				>
 					Sign in
 				</Button>

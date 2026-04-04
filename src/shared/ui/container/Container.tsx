@@ -1,5 +1,3 @@
-import styles from './container.module.scss'
-
 export const Container = ({ children }: { children: React.ReactNode }) => {
-	return <div className={styles.container}>{children}</div>
+	return <div className="max-w-[77.5rem] w-full pl-4 pr-4">{children}</div>
 }
