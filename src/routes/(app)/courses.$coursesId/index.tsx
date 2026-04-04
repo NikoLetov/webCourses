@@ -1,8 +1,10 @@
-import type { ICoursesItem } from '@/entities/card-item/ui/card-preview'
+import type {
+	ICoursesItem,
+	UserComment
+} from '@/entities/card-item/ui/card-preview'
 import { Container } from '@/shared/ui/container'
 import { createFileRoute, useLoaderData } from '@tanstack/react-router'
 import { Button, Card } from 'antd'
-import { Meta } from 'antd/es/list/Item'
 import { useState } from 'react'
 
 export const Route = createFileRoute('/(app)/courses/$coursesId/')({
@@ -58,16 +60,31 @@ function RouteComponent() {
 					</Button>
 				]}
 			>
-				<Meta description={data.description} />
-				<Meta
-					description={
-						isReviews &&
-						data.reviews?.map((item) => (
-							<div key={item.username}>{item.comment}</div>
-						))
-					}
-				/>
+				<Card.Meta description={data.description} />
 			</Card>
+			{data.reviews && isReviews && <CardCommentList items={data.reviews} />}
 		</Container>
+	)
+}
+
+const CardCommentList = ({ items }: { items: UserComment[] }) => {
+	return (
+		<ul>
+			{items &&
+				items.map((item) => (
+					<CardCommentItem
+						key={item.username}
+						item={item}
+					/>
+				))}
+		</ul>
+	)
+}
+const CardCommentItem = ({ item }: { item: UserComment }) => {
+	return (
+		<li key={item.username}>
+			<div>name:{item.username}</div>
+			<div>comment:{item.comment}</div>
+		</li>
 	)
 }

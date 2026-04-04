@@ -3,7 +3,6 @@ import {
 	type ICoursesItem
 } from '@/entities/card-item/ui/card-preview'
 import { use } from 'react'
-import styles from './courses-list.module.scss'
 
 export const CoursesList = ({ data }: { data: Promise<ICoursesItem[]> }) => {
 	const courses = use(data)
@@ -13,7 +12,7 @@ export const CoursesList = ({ data }: { data: Promise<ICoursesItem[]> }) => {
 	}
 
 	return (
-		<ul className={styles.list}>
+		<ul className="flex justify-between gap-2.5 flex-wrap">
 			{courses &&
 				courses.map((item) => (
 					<CardPreview
