@@ -1,0 +1,1 @@
+export { MyErrorFallback } from './error'

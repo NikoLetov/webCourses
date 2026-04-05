@@ -1,19 +1,5 @@
 import { Link } from '@tanstack/react-router'
-
-export interface UserComment {
-	username: string
-	rating: number
-	comment: string
-}
-
-export interface ICoursesItem {
-	id: number
-	name: string
-	rating: number
-	description: string
-	img?: string | undefined
-	reviews?: UserComment[]
-}
+import type { ICoursesItem } from './types'
 
 export const CardPreview = ({ item }: { item: ICoursesItem }) => {
 	return (

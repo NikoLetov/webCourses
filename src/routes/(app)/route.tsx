@@ -2,9 +2,11 @@ import { AppLayout } from '@/app/layout/layout'
 import { AuthService } from '@/entities/auth'
 import type { AuthSession } from '@/entities/auth/api/type.api'
 import { useAuth } from '@/entities/auth/model/use-auth'
+import { MyErrorFallback } from '@/shared/ui/error'
 import { Header } from '@/widget/header'
 import { Outlet, createFileRoute, useLoaderData } from '@tanstack/react-router'
 import { useLayoutEffect } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 
 export const Route = createFileRoute('/(app)')({
 	loader: async (): Promise<AuthSession | null> => {
@@ -37,7 +39,11 @@ function RouteComponent() {
 
 	return (
 		<AppLayout
-			header={<Header />}
+			header={
+				<ErrorBoundary FallbackComponent={MyErrorFallback}>
+					<Header />
+				</ErrorBoundary>
+			}
 			main={<Outlet />}
 			footer={<div>footer</div>}
 		/>

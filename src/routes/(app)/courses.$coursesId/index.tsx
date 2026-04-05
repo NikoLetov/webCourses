@@ -1,11 +1,11 @@
-import type {
-	ICoursesItem,
-	UserComment
-} from '@/entities/card-item/ui/card-preview'
+import { CardCommentsList } from '@/entities/card'
+import type { ICoursesItem } from '@/entities/card/ui/types'
 import { Container } from '@/shared/ui/container'
+import { MyErrorFallback } from '@/shared/ui/error'
 import { createFileRoute, useLoaderData } from '@tanstack/react-router'
 import { Button, Card } from 'antd'
 import { useState } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 
 export const Route = createFileRoute('/(app)/courses/$coursesId/')({
 	loader: async ({ params, abortController }) => {
@@ -32,7 +32,7 @@ function RouteComponent() {
 		from: '/(app)/courses/$coursesId/'
 	})
 
-	const [isReviews, setIsReviews] = useState(true)
+	const [isReviews, setIsReviews] = useState(false)
 
 	const handleToggleReviews = () => {
 		setIsReviews((cur) => !cur)
@@ -40,51 +40,31 @@ function RouteComponent() {
 
 	return (
 		<Container>
-			<Card
-				title={data.name}
-				cover={
-					<img
-						src={data.img}
-						alt="grenb"
-						style={{ height: '500px' }}
-					/>
-				}
-				actions={[
-					<Button type="link">Купить подписку</Button>,
-					<Button type="link">Добавить в избранное</Button>,
-					<Button
-						type="link"
-						onClick={handleToggleReviews}
-					>
-						{isReviews ? 'Скрыть отзывы' : 'Показать отзывы'}
-					</Button>
-				]}
-			>
-				<Card.Meta description={data.description} />
-			</Card>
-			{data.reviews && isReviews && <CardCommentList items={data.reviews} />}
+			<ErrorBoundary FallbackComponent={MyErrorFallback}>
+				<Card
+					title={data.name}
+					cover={
+						<img
+							src={data.img}
+							alt="grenb"
+							style={{ height: '500px' }}
+						/>
+					}
+					actions={[
+						<Button type="link">Купить подписку</Button>,
+						<Button type="link">Добавить в избранное</Button>,
+						<Button
+							type="link"
+							onClick={handleToggleReviews}
+						>
+							{isReviews ? 'Скрыть отзывы' : 'Показать отзывы'}
+						</Button>
+					]}
+				>
+					<Card.Meta description={data.description} />
+				</Card>
+				{isReviews && <CardCommentsList items={data.reviews} />}
+			</ErrorBoundary>
 		</Container>
-	)
-}
-
-const CardCommentList = ({ items }: { items: UserComment[] }) => {
-	return (
-		<ul>
-			{items &&
-				items.map((item) => (
-					<CardCommentItem
-						key={item.username}
-						item={item}
-					/>
-				))}
-		</ul>
-	)
-}
-const CardCommentItem = ({ item }: { item: UserComment }) => {
-	return (
-		<li key={item.username}>
-			<div>name:{item.username}</div>
-			<div>comment:{item.comment}</div>
-		</li>
 	)
 }
