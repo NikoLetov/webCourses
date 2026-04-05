@@ -1,7 +1,5 @@
-import {
-	CardPreview,
-	type ICoursesItem
-} from '@/entities/card-item/ui/card-preview'
+import { CardPreview } from '@/entities/card/ui/card-preview'
+import type { ICoursesItem } from '@/entities/card/ui/types'
 import { use } from 'react'
 
 export const CoursesList = ({ data }: { data: Promise<ICoursesItem[]> }) => {
