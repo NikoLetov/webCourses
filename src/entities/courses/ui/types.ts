@@ -12,3 +12,9 @@ export interface ICoursesItem {
 	img?: string | undefined
 	reviews: UserComment[]
 }
+
+export type FilterCourses = {
+	title: string
+	sort: 'rating' | '-rating'
+	signal?: AbortSignal
+}

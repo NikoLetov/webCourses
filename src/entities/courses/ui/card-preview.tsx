@@ -4,7 +4,7 @@ import type { ICoursesItem } from './types'
 export const CardPreview = ({ item }: { item: ICoursesItem }) => {
 	return (
 		<li
-			className="flex flex-col justify-around flex-1 shrink-0 basis-1/5 w-max gap-2.5  bg-white shadow-2xl rounded-3xl overflow-hidden p-5"
+			className="flex flex-col justify-around  basis-1/5 shrink grow bg-white shadow-2xl rounded-3xl overflow-hidden p-5"
 			key={item.id}
 		>
 			<div className="text-center text-[1.3rem] font-semibold">{item.name}</div>
