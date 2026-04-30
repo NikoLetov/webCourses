@@ -1,5 +1,5 @@
-import { AuthService } from '@/entities/auth'
-import type { AuthSession } from '@/entities/auth/api/type.api'
+import { AuthService } from '@/features/auth'
+import type { AuthSession } from '@/features/auth/api/type.api'
 import { UserOutlined } from '@ant-design/icons'
 import { Link, useRouter } from '@tanstack/react-router'
 import type { MenuProps } from 'antd'

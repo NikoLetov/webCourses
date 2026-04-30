@@ -1,5 +1,5 @@
-import { CardCommentsList } from '@/entities/courses'
-import type { ICoursesItem } from '@/entities/courses/ui/types'
+import { CardCommentsList } from '@/features/course'
+import type { CoursesItem } from '@/features/course/ui/types'
 import { Container } from '@/shared/ui/container'
 import { MyErrorFallback } from '@/shared/ui/error'
 import { createFileRoute, useLoaderData } from '@tanstack/react-router'
@@ -28,7 +28,7 @@ export const Route = createFileRoute('/(app)/courses/$coursesId/')({
 })
 
 function RouteComponent() {
-	const data: ICoursesItem = useLoaderData({
+	const data: CoursesItem = useLoaderData({
 		from: '/(app)/courses/$coursesId/'
 	})
 

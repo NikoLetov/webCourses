@@ -1,4 +1,4 @@
-import { AuthContext } from '@/shared/ui/context'
+import { AuthContext } from '@/entities/auth/ui/context'
 import { useContext } from 'react'
 
 export const useAuth = () => {

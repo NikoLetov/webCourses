@@ -1,5 +1,5 @@
-import { AuthService } from '@/entities/auth'
-import type { UserType } from '@/entities/auth/api/type.api'
+import { AuthService } from '@/features/auth'
+import type { UserType } from '@/features/auth/api/type.api'
 import { useRouter } from '@tanstack/react-router'
 import { Button, Card, Form, Input, Typography } from 'antd'
 import { useFormik } from 'formik'

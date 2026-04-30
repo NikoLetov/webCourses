@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
-import type { ICoursesItem } from './types'
+import type { CoursesItem } from './type'
 
-export const CardPreview = ({ item }: { item: ICoursesItem }) => {
+export const CardPreview = ({ item }: { item: CoursesItem }) => {
 	return (
 		<li
 			className="flex flex-col justify-around  basis-1/5 shrink grow bg-white shadow-2xl rounded-3xl overflow-hidden p-5"

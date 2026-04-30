@@ -1,4 +1,4 @@
-import type { UserComment } from './types'
+import type { UserComment } from './type'
 
 export const CardCommentsList = ({ items }: { items: UserComment[] }) => {
 	if (!items.length) return <div>Список пуст</div>
