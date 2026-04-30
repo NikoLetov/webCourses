@@ -1,9 +1,5 @@
-import { AuthService } from '@/entities/auth'
-import {
-	isRedirect,
-	redirect,
-	createFileRoute
-} from '@tanstack/react-router'
+import { AuthService } from '@/features/auth'
+import { createFileRoute, isRedirect, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/(app)/profile/$profileId/')({
 	component: RouteComponent,

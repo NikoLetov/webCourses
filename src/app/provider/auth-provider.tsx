@@ -1,5 +1,5 @@
-import { type AuthSession } from '@/entities/auth/api/type.api'
-import { AuthContext } from '@/shared/ui/context/context'
+import { AuthContext } from '@/entities/auth'
+import type { AuthSession } from '@/entities/auth/api/type'
 import { useState } from 'react'
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {

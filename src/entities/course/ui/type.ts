@@ -4,17 +4,11 @@ export interface UserComment {
 	comment: string
 }
 
-export interface ICoursesItem {
+export interface CoursesItem {
 	id: number
 	name: string
 	rating: number
 	description: string
 	img?: string | undefined
 	reviews: UserComment[]
-}
-
-export type FilterCourses = {
-	title: string
-	sort: 'rating' | '-rating'
-	signal?: AbortSignal
 }

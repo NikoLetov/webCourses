@@ -1,4 +1,4 @@
-import { AuthService } from '@/entities/auth'
+import { AuthService } from '@/features/auth'
 import { useRouter } from '@tanstack/react-router'
 import { Button, Card, Form, Input, Typography } from 'antd'
 import { useFormik } from 'formik'
