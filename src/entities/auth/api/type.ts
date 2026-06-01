@@ -9,3 +9,5 @@ export type UserType = {
 	role: UserRole
 	avatar?: string
 }
+
+export type UserTypeProfile = Omit<UserType, 'id' | 'role' | 'password'>

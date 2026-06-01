@@ -1,9 +1,13 @@
+import type {
+	AuthSession,
+	AuthUserType,
+	UserType
+} from '@/entities/auth/api/type'
 import {
 	RegistrationError,
 	UnauthorizedError,
 	type ApiResponse
 } from '@/shared/api/types'
-import type { AuthSession, AuthUserType, UserType } from './type.api'
 
 const STORAGE_KEYS = {
 	SESSION: 'session'
@@ -27,6 +31,7 @@ export const AuthService = {
 	async setSessionCookie(data: AuthSession): Promise<CookieListItem> {
 		try {
 			await cookieStore.set(STORAGE_KEYS.SESSION, JSON.stringify(data))
+
 			const isCheck = await this.getSessionCookie()
 
 			if (!isCheck) {
@@ -111,3 +116,81 @@ export const AuthService = {
 		}
 	}
 }
+
+// // ---------- IndexedDB (для картинки) ----------
+// const DB_NAME = 'AppDB'
+// const STORE_NAME = 'avatars'
+
+// function openDB() {
+// 	return new Promise((resolve, reject) => {
+// 		const request = indexedDB.open(DB_NAME, 1)
+// 		console.log(request)
+// 		request.onupgradeneeded = () => {
+// 			const db = request.result
+// 			if (!db.objectStoreNames.contains(STORE_NAME)) {
+// 				db.createObjectStore(STORE_NAME, { keyPath: 'userId' })
+// 			}
+// 		}
+// 		request.onsuccess = () => resolve(request.result)
+// 		request.onerror = () => reject(request.error)
+// 	})
+// }
+
+// async function saveAvatarToIndexedDB(userId, file) {
+// 	const db = await openDB()
+// 	const tx = db.transaction(STORE_NAME, 'readwrite')
+// 	tx.objectStore(STORE_NAME).put({ userId, blob: file })
+// }
+
+// async function loadAvatarFromIndexedDB(userId) {
+// 	const db = await openDB()
+// 	const tx = db.transaction(STORE_NAME, 'readonly')
+// 	return new Promise((resolve) => {
+// 		const request = tx.objectStore(STORE_NAME).get(userId)
+// 		request.onsuccess = () => resolve(request.result?.blob || null)
+// 	})
+// }
+
+// // ---------- SessionStorage (для текстовых данных) ----------
+// function saveUserToSession(user) {
+// 	const sessionData = {
+// 		id: user.id,
+// 		name: user.name,
+// 		email: user.email,
+// 		theme: user.theme || 'light',
+// 		lastLogin: Date.now()
+// 		// avatar НЕ кладем сюда — только ссылка!
+// 	}
+// 	sessionStorage.setItem('user', JSON.stringify(sessionData))
+// }
+
+// function getUserFromSession() {
+// 	const data = sessionStorage.getItem('user')
+// 	return data ? JSON.parse(data) : null
+// }
+
+// // ---------- ПОЛЬЗОВАТЕЛЬСКИЙ СКРИПТ ----------
+// // При логине
+// async function onLogin(user) {
+// 	// Сохраняем текстовые данные
+// 	saveUserToSession(user)
+
+// 	// Сохраняем аватар (если есть)
+// 	if (user.avatarFile) {
+// 		await saveAvatarToIndexedDB(user.id, user.avatarFile)
+// 	}
+// }
+
+// // При загрузке страницы
+// async function restoreUserSession() {
+// 	const user = getUserFromSession()
+// 	if (!user) return null
+
+// 	// Подгружаем аватар из IndexedDB
+// 	const avatarBlob = await loadAvatarFromIndexedDB(user.id)
+
+// 	return {
+// 		...user,
+// 		avatarUrl: avatarBlob ? URL.createObjectURL(avatarBlob) : null
+// 	}
+// }

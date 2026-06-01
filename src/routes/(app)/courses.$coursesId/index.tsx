@@ -1,5 +1,5 @@
-import { CardCommentsList } from '@/features/course'
-import type { CoursesItem } from '@/features/course/ui/types'
+import { CardCommentsList } from '@/entities/course'
+import type { CoursesItem } from '@/entities/course/ui/type'
 import { Container } from '@/shared/ui/container'
 import { MyErrorFallback } from '@/shared/ui/error'
 import { createFileRoute, useLoaderData } from '@tanstack/react-router'
