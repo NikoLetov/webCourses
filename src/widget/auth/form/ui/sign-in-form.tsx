@@ -12,6 +12,7 @@ export const SignInForm = () => {
 		},
 		onSubmit: async (val) => {
 			const result = await AuthService.SignIn(val)
+			console.log(result)
 			if (result.success) {
 				router.history.back()
 			}

@@ -1,6 +1,6 @@
 import { AppLayout } from '@/app/layout/layout'
+import type { AuthSession } from '@/entities/auth/api/type'
 import { AuthService } from '@/features/auth'
-import type { AuthSession } from '@/features/auth/api/type.api'
 import { useAuth } from '@/features/auth/model/use-auth'
 import { MyErrorFallback } from '@/shared/ui/error'
 import { Header } from '@/widget/header'
