@@ -178,13 +178,6 @@ function RouteComponent() {
 						placeholder="Введите email"
 					/>
 				</div>
-
-				{/* <Button
-					htmlType="submit"
-					disabled={isSubmitting}
-				>
-					{isSubmitting ? 'Сохранение...' : 'Save'}
-				</Button> */}
 			</form>
 		</Card>
 	)
